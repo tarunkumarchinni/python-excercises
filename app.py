@@ -30,7 +30,7 @@ class Loan(db.Document):
     date=db.StringField()
     rateofinterest=db.StringField()
     durationofloan=db.IntField()
-    username=db.StringField()
+    username=db.StringField()#user_id
 
 @app.route('/')
 def basic():
@@ -74,19 +74,29 @@ def account_details(customer_id):
         #customer not found
         return "user does not exists",404
 
-# @app.route('/Loan',methods=['POST','GET'])
-# def apply_loan():
-#     if request.method == 'POST':
-#         record = json.loads(request.data)
-#         x=Accounts.objects(username=record['username'])
-#         y=x.count()
-#         if y>0:
-#             customer = Loan(loantype=record['loantype'],loanamount=record['loanamount'],date=record['date'],rateofinterest=record['rateofinterest'],durationofloan=record['durationofloan'],username=record['username'])
-#             return jsonify(customer.save())
-#         else:
-#             return jsonify({"output":"Username does not  exists. please register to apply loan"})
-#     else:
-#         return jsonify(Loan.objects())
+@app.route('/Loan',methods=['POST','GET'])
+def apply_loan():
+    if request.method == 'POST':
+        record = json.loads(request.data)
+        x=Accounts.objects(username=record['username'])
+        y=x.count()
+        if y>0:
+            customer = Loan(loantype=record['loantype'],loanamount=record['loanamount'],date=record['date'],rateofinterest=record['rateofinterest'],durationofloan=record['durationofloan'],username=record['username'])
+            return jsonify(customer.save())
+        else:
+            return jsonify({"output":"Username does not exists. please register to apply loan"})
+    else:
+        return jsonify(Loan.objects())
+
+
+@app.route('/Loan/<customer_username>',methods=['GET'])
+def user_loan(customer_username):
+    customer=Loan.objects(username=customer_username)
+    y=customer.count()
+    if y>0:
+        return jsonify(customer)
+    else:
+        return jsonify({"output":"you does not have any loans to display"})
 
 
 if __name__ == "__main__":
