@@ -3,6 +3,9 @@
 
         <div class="loan"> 
              <h1>{{message}} </h1>
+             <div>
+                <button v-on:click="accountdetails(userid)">Apply Loan</button>
+            </div>
             <div v-if="loans.length==0">
                 <div>
                     you does not had any previous loans to display
@@ -12,8 +15,8 @@
                 <ol>
                     <li  v-for="loan in loans" v-bind:key="loan.id">{{loan.loantype}} as {{loan.loanamount}}
                         <button v-on:click="getLoan()">get details</button>
-                        <button v-on:click="updateLoan(loan)">Edit</button>
-                        <button v-on:click="deleteLoan(loan)">Delete</button>
+                        <button v-on:click="updateLoan(loan.username)">Edit</button>
+                        <button v-on:click="deleteLoan(loan.username)">Delete</button>
                         <div v-if="isEditing==true">
                             {{loan.loantype}}, {{loan.loanamount}} ,{{loan.date}}, {{loan.rateofinterest}}, {{loan.durationofloan}}
                             {{isEditing}}
@@ -33,7 +36,7 @@ export default {
     data: function(){
         return {
             message: "Hello i am from Loan",
-            userid: "tarun123",
+            userid: this.$route.params.username,
             isEditing: false,
             loans:Array
         }
@@ -48,7 +51,7 @@ export default {
                 this.loans=response.data
                 console.log(response)
                 console.log(this.loans)
-               console.log(status)
+
             }).catch(error=>{
                 // console.log(this.loans)
                 //  console.clear({{loan._id.$oid}});
@@ -62,11 +65,37 @@ export default {
         getLoan: function(){
             this.isEditing= true
         },
-        updateLoan: function(){
-            this.isEditing=false
+        accountdetails: function(){
+            this.$router.push({
+                path:'/AccountDetails/'+id,
+                params:{username:id}
+            })
         },
-        deleteLoan: function(){
-            this.isEditing=false
+        updateLoan: function(id){
+            console.log(id)
+            console.log(this.$router)
+            this.$router.push({
+                path:'/edit-loan/'+id,
+                params:{username:id}
+            })
+        },
+        deleteLoan: function(id){
+            this.$http.delete("http://127.0.0.1:5000/Loan/"+id)
+            .then(response =>{ 
+                console.log(response.data.output)
+                this.message=response.data.output
+                console.log(this.loans)
+                this.getLoans()
+
+            }).catch(error=>{
+                // console.log(this.loans)
+                //  console.clear({{loan._id.$oid}});
+                if(error.response.status==404){
+                    this.loans=error.response.data
+                }
+                 console.log(this.loans.length)
+                 console.log(this.loans)
+            })
         },
         applyLoan: function(id){
             console.log(id)

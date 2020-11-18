@@ -4,22 +4,22 @@
         <div>
             <form>
                     <label >Loan Type: </label>
-                    <input type="text" v-model="applyLoan.loantype">
+                    <input type="text" v-model="editLoan.loantype">
                     <br>
                     <label >Loan Amount: </label>
-                    <input type="text" v-model="applyLoan.loanamount">
+                    <input type="text" v-model="editLoan.loanamount">
                     <br>
                     <label >Date: </label>
-                    <input type="date" v-model="applyLoan.date">
+                    <input type="date" v-model="editLoan.date">
                     <br>
                     <label >Rate of interest: </label>
-                    <input type="text" v-model="applyLoan.rateofinterest">
+                    <input type="text" v-model="editLoan.rateofinterest">
                     <br>
                     <label >Duration of loan: </label>
-                    <input type="text" v-model="applyLoan.durationofloan">
+                    <input type="text" v-model="editLoan.durationofloan">
                     <br>
                     <br>
-                    <button v-on:click.prevent="signupForm" v-on:click="isEditing =!isEditing">Apply</button>
+                    <button v-on:click.prevent="editLoanForm" v-on:click="isEditing =!isEditing">Apply</button>
                     <button  v-on:click.prevent="cancel" >Cancel</button>
             </form>
         </div>
@@ -30,9 +30,9 @@ export default {
     data: function(){
         return {
             id: this.$route.params.username,
-            message: "Hello i am from sign up",
+            message: "Hello i am from edit loan",
             errorMessage:'',
-            applyLoan:{
+            editLoan:{
                 loantype:'',
                 username:this.$route.params.username,
                 loanamount:'',
@@ -42,39 +42,49 @@ export default {
             }
         }
     },
+    mounted: function(){
+        this.getLoan()
+    },
     methods:{
-        signupForm: function(){
-            console.log(this.applyLoan)
-            this.$http.post("http://127.0.0.1:5000/Loan",this.applyLoan)
+        getLoan: function(){
+            this.$http.get("http://127.0.0.1:5000/Loan/"+this.id)
+            .then(response =>{
+                this.editLoan=response.data[0]
+                console.log(this.editLoan)
+            }).catch(error=>{
+                // console.log(this.loans)
+                //  console.clear({{loan._id.$oid}});
+                if(error.response.status==404){
+                    this.loans=error.response.data
+                }
+                //  console.log(this.loans.length)
+                //  console.log(this.loans)
+            })
+        },
+        editLoanForm: function(){
+            console.log(this.id)
+            this.$http.put("http://127.0.0.1:5000/Loan/"+this.id,this.editLoan)
             .then(response =>{
                 console.log(response)
                 this.$router.push({
-                    path: "/show-loans/" + this.id,
-
-                    params: { username: this.id },
-                });
+                    path: "/show-loans/"+this.id,
+                    params:{username:this.id}
+                }); 
             }).catch(error=>{
                 if(error.response.status==404){
                     this.errorMessage=error.response.data.output
                 }
-                alert(this.errorMessage)
                 console.log(error.response)
             })
         },
         cancel:function(){
             console.log(this.isEditing)
-                this.$router.push({
-                    path: "/show-loans/" + this.id,
-
-                    params: { username: this.id },
+            this.$router.push({
+                    path: "/show-loans/"+this.id,
+                    params:{username:this.id}
                 });
         }
     },
-    mounted:function(){
-        console.log("this is the param from apply loan")
-        console.log(this.$route.params)
-    }
-
 }
 </script>
 <style scoped>
