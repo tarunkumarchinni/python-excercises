@@ -1,13 +1,14 @@
 <template>
   <div class="container">
-    <li v-for="accounts in accounts" v-bind:key="accounts.id">
-      <h1>{{ message }} for {{ accounts.username }}</h1>
-      <button
-        class="btn btn-large btn-block btn-primary full-width"
+    <button
+        class="btn btn-large btn-success full-width" style="float: right;"
         @click="loansdetails(userid)"
       >
-        Loans
+        Show Loans
       </button>
+    <div v-for="accounts in accounts" v-bind:key="accounts.id">
+      <h4>{{ message }}</h4>
+      
       <hr />
 
       <table class="table table-striped">
@@ -33,6 +34,12 @@
           <th>Email</th>
 
           <td>{{ accounts.email }}</td>
+        </tr>
+
+        <tr>
+          <th>Contact</th>
+
+          <td>{{ accounts.contact }}</td>
         </tr>
 
         <tr>
@@ -76,9 +83,9 @@
         class="btn btn-large btn-block btn-primary full-width"
         @click="updateAccount(userid)"
       >
-        Update
+        Edit
       </button>
-    </li>
+    </div>
   </div>
 </template>
 

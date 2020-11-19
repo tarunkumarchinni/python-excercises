@@ -1,26 +1,34 @@
 <template>
-    <div class="loan">
-        <h4>{{message}} as {{id}}</h4>
-        <div>
+    <div class="container">
+        <h4>{{message}}</h4>
+        <div class="well">
             <form>
+                <div class="form-group">
                     <label >Loan Type: </label>
-                    <input type="text" v-model="applyLoan.loantype">
-                    <br>
+                    <input class="form-control" type="text" v-model="applyLoan.loantype">
+                </div>
+                <div class="form-group">
                     <label >Loan Amount: </label>
-                    <input type="text" v-model="applyLoan.loanamount">
-                    <br>
+                    <input class="form-control" type="text" v-model="applyLoan.loanamount">
+                </div>
+                <div class="form-group">
                     <label >Date: </label>
-                    <input type="date" v-model="applyLoan.date">
-                    <br>
+                    <input class="form-control" type="date" v-model="applyLoan.date">
+                </div>
+                <div class="form-group">
                     <label >Rate of interest: </label>
-                    <input type="text" v-model="applyLoan.rateofinterest">
-                    <br>
+                    <input class="form-control" type="text" v-model="applyLoan.rateofinterest">
+                </div>
+                <div class="form-group">
                     <label >Duration of loan: </label>
-                    <input type="text" v-model="applyLoan.durationofloan">
+                    <input class="form-control" type="text" v-model="applyLoan.durationofloan">
+                </div>
                     <br>
+                    <button class="btn btn-large btn-block btn-success full-width" v-on:click.prevent="signupForm" v-on:click="isEditing =!isEditing">Apply</button>
+                   <br>
+                    Want to cancel? Click
+                    <button class="btn btn-large btn-danger full-width"  v-on:click.prevent="cancel" >Cancel</button>
                     <br>
-                    <button v-on:click.prevent="signupForm" v-on:click="isEditing =!isEditing">Apply</button>
-                    <button  v-on:click.prevent="cancel" >Cancel</button>
             </form>
         </div>
     </div>
@@ -30,7 +38,7 @@ export default {
     data: function(){
         return {
             id: this.$route.params.username,
-            message: "Hello i am from sign up",
+            message: "Apply Loan",
             errorMessage:'',
             applyLoan:{
                 loantype:'',
@@ -78,23 +86,5 @@ export default {
 }
 </script>
 <style scoped>
-.loan {
-    /* position:absolute; */
-    border: 1px solid red;
-    width: 99.6%;
-    height: 480px;
-    padding: 1px;
-    text-align: center;
-    /* display: inline-table;
-    height: 200px;
-    float:right;
-    z-index: auto;
-    display: table-row; */
-    /* width:980%;
-    height:450px;
-    background-color: #0d7963;
-    float:right;
-    flex-wrap: nowrap; */
-}
 
 </style>

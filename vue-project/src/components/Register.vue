@@ -2,8 +2,8 @@
   <div class="container">
     <form @submit.prevent="handleSubmit()">
       <div class="well">
-        <h4>Registration</h4>
-
+        <h1>Registration Form</h1>
+          <p v-if="isEditing==true" style="color:red;">{{message}}</p>
         <div class="form-group">
           <label class="pull-left"> Name </label>
 
@@ -46,7 +46,7 @@
           <label class="pull-left"> Password </label>
 
           <input
-            type="text"
+            type="password"
             class="form-control"
             placeholder="Password "
             v-model="User.password"
@@ -179,7 +179,7 @@
           <label class="pull-left"> Date of birth </label>
 
           <input
-            type="text"
+            type="date"
             class="form-control"
             placeholder="Date of birth "
             v-model="User.dob"
@@ -216,16 +216,18 @@
 
       <button
         type="submit"
-        class="btn btn-large btn-block btn-primary full-width"
+        class="btn btn-large btn-block btn-success full-width"
       >
         Submit
       </button>
-
+      <br>
+        Want to cancel? Click 
       <router-link to="/">
-        <button class="btn btn-large btn-block btn-success full-width">
+        <button class="btn btn-large  btn-danger full-width">
           Cancel
         </button>
       </router-link>
+      <br><br><br><br><br>
     </form>
   </div>
 </template>
@@ -242,6 +244,8 @@ import { required } from "vuelidate/lib/validators";
 export default {
   data() {
     return {
+      message:'',
+      isEditing:false,
       User: {
         name: "",
 
@@ -345,17 +349,21 @@ export default {
         .then((response) => {
           console.log(response);
           // router.push({ name: 'Login' })
-          this.$router
-            .push({
-              path: "/login",
-            })
-
-            .catch((error) => {
-              console.log(error.response);
-
-              console.log("user already existssss");
+          if(response.data.output){
+                  this.isEditing=true
+                  this.message="Username already exists,So please provide another..."
+                  console.log("User already exists...!");
+          }
+          else{
+              this.$router.push({
+                path: "/login",
+              })
+          }
+        })
+         .catch((error) => {
+              console.log(error.response.data);
+              
             });
-        });
     },
 
     // },

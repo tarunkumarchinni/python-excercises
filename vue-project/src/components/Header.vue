@@ -1,13 +1,13 @@
 <template>
     <div class="header">
-        <p>{{message}}</p>
+        <h1>{{message}}</h1>
     </div>
 </template>
 <script>
 export default {
     data: function(){
         return {
-            message: "Hello i am header"
+            message: "Bank Management System"
         }
     }
     
@@ -27,15 +27,15 @@ export default {
   
     /* position: absolute;
     margin:0 auto; */
-    border:1px solid rgb(160, 27, 27);
-    width: 99.6%;
-    height: 40px;
+    /* border:1px solid rgb(160, 27, 27); */
+    width: 100%;
+    height: 70px;
     padding: 1px;
     text-align: center;
     /* display: inline-table;
     height:40px;
     margin-bottom:15px; */
-    /* background-color:#0d7963; */
+     background-color:#84b9ce; 
 }
   /* height:140px;
     margin-bottom:15px;

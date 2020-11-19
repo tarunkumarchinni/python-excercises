@@ -2,8 +2,8 @@
   <div class="container">
     <form>
       <div class="well">
-        <h4>Login</h4>
-        <h5 v-if="isEditting==true">{{message}}</h5>
+        <h1>Login Form</h1>
+        <h5 v-if="isEditting==true" style="color:red;">{{message}}</h5>
         <div class="form-group">
           <label class="pull-left"> Username </label>
 
@@ -19,7 +19,7 @@
           <label class="pull-left"> Password </label>
 
           <input
-            type="text"
+            type="Password"
             class="form-control"
             placeholder="Password"
             v-model="User.password"
@@ -28,27 +28,28 @@
       </div>
 
       <button
-        class="btn btn-large btn-block btn-primary full-width"
+        class="btn btn-large btn-block btn-success full-width"
        v-on:click.prevent="addToAPI"
       >
-        Signin
+        Login
       </button>
-
-      <!-- <router-link to="/Register">
+      <br>
+      Not have a account? Click 
+       <router-link to="/Register">
 
         <button
 
           type="submit"
 
-          class="btn btn-large btn-block btn-primary full-width"
+          class="btn btn-large  btn-primary full-width"
 
          >
 
-          Signup
+          Register
 
         </button>
 
-      </router-link> -->
+      </router-link>
     </form>
   </div>
 </template>
@@ -88,26 +89,26 @@ export default {
                     params:{username:this.User.username}
                 }); 
              }
+
              else{
+               
                  this.isEditting=true
+                 this.message = "Username/password is wrong...!"
              }
         //   this.$router.push({
         //     path: "/AccountDetails",
         //   });
         })
 
-        .catch((error) => {
-            
+        .catch((error) => { 
             this.isEditting=true
-            this.message=error.response.data.output
+            this.message="Username/password is wrong...!"
           console.log(error.response);
         });
     },
   },
 };
 </script>
-
-
 
 <style scoped>
 h1,
@@ -131,4 +132,3 @@ a {
   color: #42b983;
 }
 </style>
-

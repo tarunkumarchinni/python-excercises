@@ -7,7 +7,7 @@
 export default {
     data: function(){
         return {
-            message: "@Footer...."
+            message: "@copyright"
         }
     }
 }
@@ -24,12 +24,12 @@ export default {
   color: white;
   text-align: center;  */
     /* position: fixed; */
-    border: 1px solid red;
+    /* border: 1px solid red; */
     /* box-sizing: border-box; */
-    width: 99.6%;
+    width: 100%;
     height: 40px;
     padding: 1px;
-    background-color: rgb(92, 92, 92);
+    background-color:#84b9ce; 
     color: white;
     text-align: center;
     /* display: flex;
