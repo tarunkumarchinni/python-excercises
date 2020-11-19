@@ -15,9 +15,12 @@
 <b-col cols="3"><navbar></navbar></b-col>
 <b-col> -->
 <!-- <router-view></router-view> -->
-<navbar></navbar>
+<Header></Header>
+<!-- <navbar></navbar> -->
+
 <hr>
 <router-view></router-view>
+<Footer></Footer>
 <!-- </b-col>
 </b-row>
   
@@ -40,15 +43,21 @@
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
 // import Header from './components/Header.vue'
-import MyNav from "./components/Navigation"
+// import MyNav from "./components/Navigation"
+import Header from "./components/Header"
+import Footer from "./components/Footer"
 
 export default {
   // name: 'App'
   name: 'App',
   components: {
     // HelloWorld,
-    navbar: MyNav
+    // navbar: MyNav,
+
     // Header
+    Header: Header,
+    //Footer
+    Footer: Footer
   }
 }
 </script>

@@ -4,7 +4,7 @@ import VueRouter from "vue-router"
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import BootstrapVue from "bootstrap-vue"
-import Signup from './components/Signup.vue'
+
 import Loan from './components/Loan.vue'
 import ApplyLoan from './components/ApplyLoan.vue'
 import EditLoan from './components/EditLoan.vue'
@@ -28,10 +28,6 @@ const spaRoutes = new VueRouter({
     {
       path: '/',
       component: Home
-    },
-    {
-      path: '/signup',
-      component: Signup
     },
     {
       path: '/show-loans/:username',
