@@ -8,6 +8,8 @@ class InternalServerError(Exception):
 
 class AccountAlreadyExistsError(Exception):
     pass
+class AccountDoesNotExists(Exception):
+    pass
     
 errors = {
     "InternalServerError": {
@@ -20,6 +22,10 @@ errors = {
      },
      "AccountAlreadyExistsError": {
          "message": "Username already exists.please provide another!!",
+         "status": 400
+     },
+     "AccountDoesNotExists":{
+         "medssage": "user does not exists",
          "status": 400
      }
 }
