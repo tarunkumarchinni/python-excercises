@@ -3,6 +3,11 @@
 
         <div class="well"> 
             <div>
+                <router-link to="/login">
+                    <button class="btn btn-large  full-width" style="float: right;">
+                    logout
+                    </button>
+                </router-link>
                 <button  class="btn btn-large btn-primary full-width" style="float: right;" v-on:click="accountdetails(userid)">Account Details</button>
             
                 <button  class="btn btn-large btn-success full-width" style="float:left;" v-on:click="applyLoan(userid)">Apply Loan</button>
@@ -30,13 +35,13 @@
 
                                 <td>{{loan.loantype}}</td>
                                 <td>{{loan.loanamount}}</td>
-                                <td><button  class=" btn-block btn-success " v-on:click="getLoan(loan._id.$oid)">Details</button></td>
-                                <td><button class=" btn-block btn-primary " v-on:click="updateLoan(loan._id.$oid)">Edit</button></td>
-                                <td> <button class=" btn-block btn-danger " v-on:click="deleteLoan(loan._id.$oid)">Delete</button></td>
+                                <td><button  class=" btn-block btn-success " v-on:click="getLoan(loan.id)">Details</button></td>
+                                <td><button class=" btn-block btn-primary " v-on:click="updateLoan(loan.id)">Edit</button></td>
+                                <td> <button class=" btn-block btn-danger " v-on:click="deleteLoan(loan.id)">Delete</button></td>
                             <!-- </tr> -->
                         
                         
-                        <div v-if="isEditing==true && keyid==loan._id.$oid">
+                        <div v-if="isEditing==true && keyid==loan.id">
                             <table class="table table-striped">
                                 <tr>
                                 <th>Loan Type</th>
@@ -86,7 +91,7 @@ export default {
     },
     methods:{
         getLoans: function(){
-            this.$http.get("http://127.0.0.1:5000/Loan/"+this.userid)
+            this.$http.get("https://gs33tlvm34.execute-api.us-east-2.amazonaws.com/Dev/loan/user/"+this.userid)
             .then(response =>{
                 this.loans=response.data
                 console.log(response)
@@ -119,11 +124,12 @@ export default {
             console.log(this.$router)
             this.$router.push({
                 path:'/edit-loan/'+id,
-                params:{username:id}
+                params:{username:this.userid,
+                id:id}
             })
         },
         deleteLoan: function(id){
-            this.$http.delete("http://127.0.0.1:5000/loans/user/"+id)
+            this.$http.delete("https://gs33tlvm34.execute-api.us-east-2.amazonaws.com/Dev/loan/"+id)
             .then(response =>{ 
                 console.log(response.data.output)
                 alert(response.data.output)

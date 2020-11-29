@@ -1,5 +1,10 @@
 <template>
     <div class="container">
+         <router-link to="/login">
+                    <button class="btn btn-large  full-width" style="float: right;">
+                    logout
+                    </button>
+        </router-link>
         <h4>{{message}}</h4>
         <div class="well">
             <form>
@@ -39,6 +44,7 @@ export default {
             message: "Update Loan Details",
             errorMessage:'',
             editLoan:{
+                id: this.$route.params.id,
                 loantype:'',
                 username:this.$route.params.username,
                 loanamount:'',
@@ -54,7 +60,7 @@ export default {
     methods:{
         getLoan: function(){
             
-            this.$http.get("http://127.0.0.1:5000/loans/user/"+this.id)
+            this.$http.get("https://gs33tlvm34.execute-api.us-east-2.amazonaws.com/Dev/loan/"+this.id)
             .then(response =>{
                 console.log("edit response here")
                 console.log(response)
@@ -72,7 +78,7 @@ export default {
         },
         editLoanForm: function(){
             console.log(this.id)
-            this.$http.put("http://127.0.0.1:5000/loans/user/"+this.id,this.editLoan)
+            this.$http.put("https://gs33tlvm34.execute-api.us-east-2.amazonaws.com/Dev/loan/"+this.id,this.editLoan)
             .then(response =>{
                 console.log(response)
                 this.$router.push({
