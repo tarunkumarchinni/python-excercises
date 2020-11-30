@@ -53,8 +53,9 @@ export default {
     methods:{
         signupForm: function(){
             console.log(this.applyLoan)
-            this.$http.post("http://127.0.0.1:5000/Loan",this.applyLoan)
+            this.$http.post("https://gs33tlvm34.execute-api.us-east-2.amazonaws.com/Dev/loan",this.applyLoan)
             .then(response =>{
+                console.log("hey i am from responce welcome me")
                 console.log(response)
                 this.$router.push({
                     path: "/show-loans/" + this.id,
@@ -62,6 +63,7 @@ export default {
                     params: { username: this.id },
                 });
             }).catch(error=>{
+                console.log(error.response)
                 if(error.response.status==404){
                     this.errorMessage=error.response.data.output
                 }

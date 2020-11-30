@@ -2,7 +2,7 @@
   <div class="container">
     <form>
       <div class="well">
-        <h1>Login Form</h1>
+        <h4>Login</h4>
         <h5 v-if="isEditting==true" style="color:red;">{{message}}</h5>
         <div class="form-group">
           <label class="pull-left"> Username </label>
@@ -80,16 +80,15 @@ export default {
   methods: {
     addToAPI() {
       console.log(this.User);
-        this.$http.get("http://127.0.0.1:5000/Account/" + this.User.username)
+        this.$http.get("https://gs33tlvm34.execute-api.us-east-2.amazonaws.com/Dev/account/" + this.User.username)
         .then((response) => {
-          console.log(response.data[0].username);
+          console.log(response);
              if(this.User.username==response.data[0].username && this.User.password==response.data[0].password){
                 this.$router.push({
                     path: "/AccountDetails/"+this.User.username,
                     params:{username:this.User.username}
                 }); 
              }
-
              else{
                
                  this.isEditting=true

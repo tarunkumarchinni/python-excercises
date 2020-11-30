@@ -1,6 +1,9 @@
 <template>
     <div class="header">
-        <h1>{{message}}</h1>
+    
+        <h1>{{message}}
+        </h1>
+        
     </div>
 </template>
 <script>
@@ -9,8 +12,15 @@ export default {
         return {
             message: "Bank Management System"
         }
+    },
+    methods:{
+    // logout:function(){
+    //         console.log(this.$router)
+    //             this.$router.push({
+    //                 path: "/login" 
+    //             });
+    //     }
     }
-    
 }
 </script>
 <style scoped>
@@ -30,12 +40,15 @@ export default {
     /* border:1px solid rgb(160, 27, 27); */
     width: 100%;
     height: 70px;
+    top: 0;
+    right: 0;
     padding: 1px;
     text-align: center;
+    background-color: #84b9ce;
     /* display: inline-table;
     height:40px;
     margin-bottom:15px; */
-     background-color:#84b9ce; 
+     /* background-color:#84b9ce;  */
 }
   /* height:140px;
     margin-bottom:15px;

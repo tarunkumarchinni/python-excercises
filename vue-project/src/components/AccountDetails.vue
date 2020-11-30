@@ -1,5 +1,11 @@
 <template>
   <div class="container">
+    <router-link to="/login">
+        <button class="btn btn-large  full-width" style="float: right;">
+          logout
+        </button>
+    </router-link>
+    &nbsp;&nbsp;
     <button
         class="btn btn-large btn-success full-width" style="float: right;"
         @click="loansdetails(userid)"
@@ -24,11 +30,11 @@
           <td>{{ accounts.username }}</td>
         </tr>
 
-        <tr>
+        <!-- <tr>
           <th>Password</th>
 
           <td>{{ accounts.password }}</td>
-        </tr>
+        </tr> -->
 
         <tr>
           <th>Email</th>
@@ -80,7 +86,7 @@
       </table>
 
       <button
-        class="btn btn-large btn-block btn-primary full-width"
+        class="btn btn-large  btn-primary full-width"
         @click="updateAccount(userid)"
       >
         Edit
@@ -135,7 +141,7 @@ export default {
     getAccounts: function () {
       axios
 
-        .get("http://127.0.0.1:5000/Account/" + this.userid)
+        .get("https://gs33tlvm34.execute-api.us-east-2.amazonaws.com/Dev/account/" + this.userid)
 
         .then((response) => {
           this.accounts = response.data;

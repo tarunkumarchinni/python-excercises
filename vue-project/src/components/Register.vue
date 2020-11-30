@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <form @submit.prevent="handleSubmit()">
+    <form @submit.prevent="handleSubmit">
       <div class="well">
-        <h1>Registration Form</h1>
+        <h4>Registration</h4>
           <p v-if="isEditing==true" style="color:red;">{{message}}</p>
         <div class="form-group">
           <label class="pull-left"> Name </label>
@@ -16,8 +16,8 @@
           />
 
           <div
-            v-if="submitted && !$v.User.name.required"
-            class="invalid-feedback"
+            v-if="submitted && !$v.User.name.required" style="color:red;"
+            class="invalid-feedback" 
           >
             Name is required
           </div>
@@ -36,7 +36,7 @@
 
           <div
             v-if="submitted && !$v.User.username.required"
-            class="invalid-feedback"
+            class="invalid-feedback" style="color:red;"
           >
             username is required
           </div>
@@ -55,7 +55,7 @@
 
           <div
             v-if="submitted && !$v.User.password.required"
-            class="invalid-feedback"
+            class="invalid-feedback" style="color:red;"
           >
             Password is required
           </div>
@@ -74,7 +74,7 @@
 
           <div
             v-if="submitted && !$v.User.address.required"
-            class="invalid-feedback"
+            class="invalid-feedback" style="color:red;"
           >
             Address is required
           </div>
@@ -93,7 +93,7 @@
 
           <div
             v-if="submitted && !$v.User.state.required"
-            class="invalid-feedback"
+            class="invalid-feedback" style="color:red;"
           >
             State is required
           </div>
@@ -112,7 +112,7 @@
 
           <div
             v-if="submitted && !$v.User.country.required"
-            class="invalid-feedback"
+            class="invalid-feedback" style="color:red;"
           >
             Country is required
           </div>
@@ -122,7 +122,7 @@
           <label class="pull-left"> Email </label>
 
           <input
-            type="text"
+            type="email"
             class="form-control"
             placeholder="Email "
             v-model="User.email"
@@ -131,7 +131,7 @@
 
           <div
             v-if="submitted && !$v.User.email.required"
-            class="invalid-feedback"
+            class="invalid-feedback" style="color:red;"
           >
             email is required
           </div>
@@ -150,7 +150,7 @@
 
           <div
             v-if="submitted && !$v.User.pan.required"
-            class="invalid-feedback"
+            class="invalid-feedback" style="color:red;"
           >
             PAN is required
           </div>
@@ -160,7 +160,7 @@
           <label class="pull-left"> Contact </label>
 
           <input
-            type="text"
+            type="number"
             class="form-control"
             placeholder="Contact "
             v-model="User.contact"
@@ -169,7 +169,7 @@
 
           <div
             v-if="submitted && !$v.User.contact.required"
-            class="invalid-feedback"
+            class="invalid-feedback" style="color:red;"
           >
             Contact is required
           </div>
@@ -188,7 +188,7 @@
 
           <div
             v-if="submitted && !$v.User.dob.required"
-            class="invalid-feedback"
+            class="invalid-feedback" style="color:red;"
           >
             Date of birth is required
           </div>
@@ -207,7 +207,7 @@
 
           <div
             v-if="submitted && !$v.User.account_type.required"
-            class="invalid-feedback"
+            class="invalid-feedback" style="color:red;"
           >
             Account type is required
           </div>
@@ -344,11 +344,12 @@ export default {
 
       axios
 
-        .post("http://127.0.0.1:5000/Account", newUser)
+        .post("https://gs33tlvm34.execute-api.us-east-2.amazonaws.com/Dev/account", newUser)
 
         .then((response) => {
           console.log(response);
           // router.push({ name: 'Login' })
+          console.log(response.data.output)
           if(response.data.output){
                   this.isEditing=true
                   this.message="Username already exists,So please provide another..."
